@@ -1,0 +1,4 @@
+confluent-kafka==2.5.0
+apache-airflow-providers-apache-kafka==1.6.0 
+apache-airflow-providers-apache-spark==4.10.0 
+cassandra-driver==3.29.2
