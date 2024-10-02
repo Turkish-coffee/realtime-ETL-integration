@@ -11,7 +11,7 @@ from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOpe
     schedule_interval='@daily',
     catchup=False)
 def ingest_data():
-
+    @task
     @provide_session
     def create_spark_connection(session=None):
         # Check if the connection already exists
