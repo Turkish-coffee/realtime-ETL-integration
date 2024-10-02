@@ -2,7 +2,6 @@
 from datetime import datetime
 from airflow.decorators import dag, task, task_group
 from airflow.models import Connection
-#from airflow.utils.session import provide_session, create_session
 from airflow.utils.db import provide_session
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 
@@ -13,7 +12,6 @@ from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOpe
     catchup=False)
 def ingest_data():
 
-    @task
     @provide_session
     def create_spark_connection(session=None):
         # Check if the connection already exists
@@ -45,8 +43,10 @@ def ingest_data():
         num_executors=1,
         executor_memory="2g",
         driver_memory='2g',
-        #application_args=["arg1", "arg2"],
-        #jars="/opt/airflow/spark_jobs",
+        conf={
+        "spark.jars.packages": "com.datastax.spark:spark-cassandra-connector_2.12:3.5.1,"
+                               "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1"
+        },
         verbose=True,
     )
 
