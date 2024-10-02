@@ -1,4 +1,4 @@
-FROM apache/airflow:2.9.1-python3.12
+FROM apache/airflow:2.9.1-python3.11
 
 USER root
 
@@ -12,3 +12,9 @@ RUN apt update && \
 ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-arm64
 
 USER airflow
+
+# Uninstall the pre-installed PySpark version (3.5.3)
+RUN pip uninstall -y pyspark
+
+# Install the specific version of PySpark (3.5.1)
+RUN pip install pyspark==3.5.1
